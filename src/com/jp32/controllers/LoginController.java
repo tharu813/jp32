@@ -22,16 +22,17 @@ public class LoginController {
         ResultSet res;
         String[] columns = {"username", "password"};
         String[] values = {username, password};
-        res = DBManager.fetchRecordByValues("AdminCommitteeMember", columns, values);
+        res = DBManager.fetchByColumns("AdminCommitteeMember", columns, values);
         try {
             if (res.next()) {
                 User user;
                 int userType = res.getInt("usertype");
+                String userId = res.getString("memberid");
                 String firstName = res.getString("firstname");
                 String lastName = res.getString("lastname");
                 switch (userType) {
                     case 1:
-                        user = new HOAUser(username, password, firstName, lastName);
+                        user = new HOAUser(userId, username, password, firstName, lastName);
                         break;
                     default:
                         user = null;
