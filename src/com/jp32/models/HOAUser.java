@@ -11,8 +11,8 @@ package com.jp32.models;
  */
 public class HOAUser extends AdminMemberUser {
     
-    public HOAUser(String username, String password, String firstName, String lastName){
-        super(username, password, firstName, lastName);
+    public HOAUser(String userid, String username, String password, String firstName, String lastName){
+        super(userid, username, password, firstName, lastName);
     }
     
 }

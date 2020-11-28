@@ -10,16 +10,21 @@ package com.jp32.models;
  * @author THARUSHI
  */
 public abstract class User {
+    private String userid;
     private String username;
     private String password;
     private String firstName;
     private String lastName;
     
-    public User(String username, String password, String firstName, String lastName){
+    public User(String userid, String username, String password, String firstName, String lastName){
+        this.userid = userid;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+    public String getUserid(){
+        return userid;
     }
 
     public String getUsername() {
