@@ -19,13 +19,13 @@ public class JP32Project {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException {
-        ResultSet res = DBManager.fetchRecordByID("club", "ClubID", 1);
+        ResultSet res = DBManager.fetchByID("club", "ClubID", 1);
         while (res.next()) {
             System.out.println(res.getString(2));
         }
         String[] columns = {"username"};
         String[] values = {"kasunt"};
-        res = DBManager.fetchRecordByValues("AdminCommitteeMember", columns, values);
+        res = DBManager.fetchByColumns("AdminCommitteeMember", columns, values);
         while (res.next()) {
             System.out.println(res.getString("faculty"));
         }

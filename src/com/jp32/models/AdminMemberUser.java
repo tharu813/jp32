@@ -10,8 +10,8 @@ package com.jp32.models;
  * @author THARUSHI
  */
 public abstract class AdminMemberUser extends User {
-    public AdminMemberUser(String username, String password, String firstName, String lastName){
-        super(username, password, firstName, lastName);
+    public AdminMemberUser(String userid, String username, String password, String firstName, String lastName){
+        super(userid, username, password, firstName, lastName);
     }
     
 }
