@@ -5,6 +5,8 @@
  */
 package com.jp32.controllers;
 //test
+//test2
+
 import com.jp32.core.DBManager;
 import com.jp32.models.*;
 import java.sql.ResultSet;
@@ -18,32 +20,62 @@ import java.util.logging.Logger;
  */
 public class LoginController {
 
-    public static void loginUser(String username, String password) {
+    public static User loginUser(String username, String password) {
         ResultSet res;
         String[] columns = {"username", "password"};
         String[] values = {username, password};
+        boolean isAdminCommitteeMember = false;
         res = DBManager.fetchByColumns("AdminCommitteeMember", columns, values);
-        try {
-            if (res.next()) {
-                User user;
-                int userType = res.getInt("usertype");
-                String userId = res.getString("memberid");
+        if (res != null) {
+            isAdminCommitteeMember = true;
+        } else {
+            res = DBManager.fetchByColumns("StudentMember", columns, values);
+        }
+        if (res != null) {
+            // now we have a user
+            User user;
+            try {
+                String userid = res.getString("memberid");
                 String firstName = res.getString("firstname");
                 String lastName = res.getString("lastname");
-                switch (userType) {
-                    case 1:
-                        user = new HOAUser(userId, username, password, firstName, lastName);
-                        break;
-                    default:
-                        user = null;
+                String faculty = res.getString("faculty");
+                short usertype = res.getShort("usertype");
+                String post = res.getString("post");
+                String contactnumber = res.getString("contactnumber");
+                if (isAdminCommitteeMember) {
+                    switch (usertype) {
+                        case 1:
+                            user = new HOAUser(userid, username, password, firstName, lastName, faculty, usertype, post, usertype);
+                            break;
+                        case 2:
+                            user = new MICUser(userid, username, password, firstName, lastName, faculty, usertype, post, usertype);
+                            break;
+                        default:
+                            user = null;
+                    }
+                } else {
+                    String degreep = res.getString("degreeprogramme");
+                    boolean repstatus = res.getBoolean("repstatus");
+                    switch (usertype) {
+                        case 3:
+                            user = new StudentMemberUser(userid, username, password, firstName, lastName, faculty, usertype, post, usertype, degreep, repstatus);
+                            break;
+                        case 4:
+                            user = new StudentRepUser(userid, username, password, firstName, lastName, faculty, usertype, post, usertype, degreep, repstatus);
+                            break;
+                        default:
+                            user = null;
+                    }
                 }
-                if (user != null) {
-                    System.out.println("Welcome " + user.getFirstName() + "!");
-                }
+                System.out.println("Welcome "+user.getFirstName()+"!");
+                return user;
 
+            } catch (SQLException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+
         }
+        return null;
     }
 }
