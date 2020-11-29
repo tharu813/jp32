@@ -11,8 +11,14 @@ package com.jp32.models;
  */
 public class StudentMemberUser extends User {
     
-    public StudentMemberUser(String userid, String username, String password, String firstName, String lastName) {
-        super(userid, username, password, firstName, lastName);
+    private String degreep;
+    private boolean repstatus;
+    
+    public StudentMemberUser(String userid, String username, String password, String firstName, String lastName, String faculty, short userType, String post, int contactdt, String dp, boolean rpstatus) {
+        super(userid, username, password, firstName, lastName, faculty, userType, post, contactdt);
+        this. degreep = dp;
+        this. repstatus = rpstatus;
     }
     
+
 }
