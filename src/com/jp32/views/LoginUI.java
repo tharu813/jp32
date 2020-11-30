@@ -6,6 +6,8 @@
 package com.jp32.views;
 
 import com.jp32.controllers.LoginController;
+import com.jp32.models.StUser;
+import com.jp32.models.User;
 import javax.swing.JOptionPane;
 
 /**
@@ -152,10 +154,24 @@ public class LoginUI extends javax.swing.JFrame {
         System.out.println(username + ", " + password);
         if (username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(lblShowMsg, "Username/Password should not be empty", "Error", JOptionPane.ERROR_MESSAGE);
-        } 
-        else {
-            LoginController.loginUser(username, password);
-            
+        } else {
+            User user = LoginController.loginUser(username, password);
+            if (user != null) {
+                this.setVisible(false);
+                switch (user.getUsertype()){
+                    case "1":
+                        break;
+                    case "2":
+                        break;
+                    case "3":
+                        NormalStudentMyClubsView.start((StUser) user);
+                        break;
+                    case "4":
+                        NormalStudentMyClubsView.start((StUser) user);
+                        break;
+                    default: break;
+                }
+            }
         }
     }//GEN-LAST:event_btn_loginActionPerformed
 

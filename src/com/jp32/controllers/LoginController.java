@@ -25,15 +25,22 @@ public class LoginController {
         String[] columns = {"username", "password"};
         String[] values = {username, password};
         boolean isAdminCommitteeMember = false;
+        boolean userFound = false;
         res = DBManager.fetchByColumns("AdminCommitteeMember", columns, values);
-        if (res != null) {
-            isAdminCommitteeMember = true;
-        } else {
-            res = DBManager.fetchByColumns("StudentMember", columns, values);
+        try {
+            if (res.next()) {
+                userFound = true;
+                isAdminCommitteeMember = true;
+            } else {
+                res = DBManager.fetchByColumns("StudentMember", columns, values);
+                if (res.next()) userFound = true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (res != null) {
+        if (userFound) {
             // now we have a user
-            User user = null;
+            User user;
             try {
                 String userid = res.getString("memberid");
                 String firstName = res.getString("firstname");
@@ -47,7 +54,7 @@ public class LoginController {
                 if (isAdminCommitteeMember) {
                     switch (usertype) {
                         case "1":
-                            user : new HOAUser(userid, username, password, firstName, lastName, faculty, usertype, post, contactnumber, repassword);
+                            user = new HOAUser(userid, username, password, firstName, lastName, faculty, usertype, post, contactnumber, repassword);
                             break;
                         case "2":
                             user = new MICUser (userid, username, password, firstName, lastName, faculty, usertype, post, contactnumber, repassword);
