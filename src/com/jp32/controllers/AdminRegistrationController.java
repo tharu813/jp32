@@ -11,4 +11,5 @@ package com.jp32.controllers;
  */
 public class AdminRegistrationController {
     
+    
 }

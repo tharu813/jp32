@@ -11,8 +11,10 @@ package com.jp32.models;
  */
 public class MICUser extends AdminMemberUser {
     
-    public MICUser(String userid, String username, String password, String firstName, String lastName, String faculty, short userType, String post, int contactdt) {
-        super(userid, username, password, firstName, lastName, faculty, userType, post, contactdt);
-    } 
+    public MICUser(String userid, String username, String password, String firstName, String lastName, String faculty, short userType, String post, int contactdt, String repassword) {
+        super(userid, username, password, firstName, lastName, faculty, userType, post, contactdt, repassword);
+    }
+    
+    
     
 }
