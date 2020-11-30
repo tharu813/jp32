@@ -9,15 +9,15 @@ package com.jp32.models;
  *
  * @author THARUSHI
  */
-public class StUser extends User{
-    
+public class StUser extends User {
+
     private String degreep;
     private boolean repstatus;
 
-    public StUser(String userid, String username, String password, String firstName, String lastName, String faculty, short userType, String post, int contactdt, String repassword, String dp, boolean rpstatus) {
+    public StUser(String userid, String username, String password, String firstName, String lastName, String faculty, short userType, String post, String contactdt, String repassword, String dp, boolean repstatus) {
         super(userid, username, password, firstName, lastName, faculty, userType, post, contactdt, repassword);
-        this. degreep = dp;
-        this. repstatus = rpstatus;
+        this.degreep = dp;
+        this.repstatus = repstatus;
     }
-    
+
 }

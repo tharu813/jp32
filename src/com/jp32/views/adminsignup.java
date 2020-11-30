@@ -27,6 +27,7 @@ public class adminsignup extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel7 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -46,8 +47,10 @@ public class adminsignup extends javax.swing.JFrame {
         btnRegister = new javax.swing.JButton();
         comboboxPosition = new javax.swing.JComboBox<>();
         comboboxFaculty = new javax.swing.JComboBox<>();
-        password = new javax.swing.JPasswordField();
-        confirmPwd = new javax.swing.JPasswordField();
+        txtpassword = new javax.swing.JPasswordField();
+        txtconfirmPwd = new javax.swing.JPasswordField();
+
+        jLabel7.setText("jLabel7");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -57,7 +60,7 @@ public class adminsignup extends javax.swing.JFrame {
 
         jLabel1.setBackground(new java.awt.Color(102, 204, 0));
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel1.setText("REGISTRATION FORM");
+        jLabel1.setText("ADMIN REGISTRATION FORM");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -66,7 +69,7 @@ public class adminsignup extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(234, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,16 +131,21 @@ public class adminsignup extends javax.swing.JFrame {
         btnRegister.setForeground(new java.awt.Color(153, 0, 0));
         btnRegister.setText("Register");
         btnRegister.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegisterActionPerformed(evt);
+            }
+        });
 
-        comboboxPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Master Incharge", "President", "Vice President", "Secretary", "Treasurer" }));
+        comboboxPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Head Of Affairs", "Master In Charge", " " }));
         comboboxPosition.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         comboboxFaculty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SOB", "SOC", "SOE" }));
         comboboxFaculty.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        password.setText("jPasswordField1");
+        txtpassword.setText("jPasswordField1");
 
-        confirmPwd.setText("jPasswordField2");
+        txtconfirmPwd.setText("jPasswordField2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -167,8 +175,8 @@ public class adminsignup extends javax.swing.JFrame {
                             .addComponent(txtuname)
                             .addComponent(comboboxPosition, 0, 282, Short.MAX_VALUE)
                             .addComponent(comboboxFaculty, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(password)
-                            .addComponent(confirmPwd)))
+                            .addComponent(txtpassword)
+                            .addComponent(txtconfirmPwd)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(169, 169, 169)
                         .addComponent(btnRegister)))
@@ -209,11 +217,11 @@ public class adminsignup extends javax.swing.JFrame {
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(confirmPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtconfirmPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43)
                 .addComponent(btnRegister)
                 .addContainerGap(42, Short.MAX_VALUE))
@@ -229,6 +237,22 @@ public class adminsignup extends javax.swing.JFrame {
     private void txtFnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFnameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFnameActionPerformed
+
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+        String fname = txtFname.getText();
+        String lname = txtLname.getText();
+        String userid = txtMemberid.getText();
+        String faculty = (String) comboboxFaculty.getSelectedItem();
+        String position = (String) comboboxPosition.getSelectedItem();
+        String contact = txtContactdt.getText();
+        String uname = txtuname.getText();
+        String password = txtpassword.getText();
+        char[] confirmedpwd = txtconfirmPwd.getPassword();
+        
+        
+        
+        
+    }//GEN-LAST:event_btnRegisterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -269,7 +293,6 @@ public class adminsignup extends javax.swing.JFrame {
     private javax.swing.JButton btnRegister;
     private javax.swing.JComboBox<String> comboboxFaculty;
     private javax.swing.JComboBox<String> comboboxPosition;
-    private javax.swing.JPasswordField confirmPwd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -278,14 +301,16 @@ public class adminsignup extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField password;
     private javax.swing.JTextField txtContactdt;
     private javax.swing.JTextField txtFname;
     private javax.swing.JTextField txtLname;
     private javax.swing.JTextField txtMemberid;
+    private javax.swing.JPasswordField txtconfirmPwd;
+    private javax.swing.JPasswordField txtpassword;
     private javax.swing.JTextField txtuname;
     // End of variables declaration//GEN-END:variables
 }

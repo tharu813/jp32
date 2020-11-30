@@ -41,7 +41,7 @@ public class LoginController {
                 String faculty = res.getString("faculty");
                 short usertype = res.getShort("usertype");
                 String post = res.getString("post");
-                int contactnumber = res.getInt("contactnumber");
+                String contactnumber = res.getString("contactnumber");
                 String repassword = res.getString("password");
                 
                 if (isAdminCommitteeMember) {

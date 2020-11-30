@@ -18,11 +18,11 @@ public abstract class User {
     private String faculty;
     private short usertype;
     private String post;
-    private int contactnumber;
+    private String contactnumber;
     private String repassword;
     
     
-    public User(String userid, String username, String password, String firstName, String lastName, String faculty, short userType, String post, int contactdt, String repassword){
+    public User(String userid, String username, String password, String firstName, String lastName, String faculty, short userType, String post, String contactdt, String repassword){
         this.userid = userid;
         this.username = username;
         this.password = password;
@@ -66,7 +66,7 @@ public abstract class User {
         return post;
     }
     
-    public int getContactnum() {
+    public String getContactnum() {
         return contactnumber;
     }
     
