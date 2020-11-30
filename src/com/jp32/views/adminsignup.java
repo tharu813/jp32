@@ -37,6 +37,7 @@ public class adminsignup extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+
         txtFname = new javax.swing.JTextField();
         txtLname = new javax.swing.JTextField();
         txtMemberid = new javax.swing.JTextField();
@@ -48,6 +49,7 @@ public class adminsignup extends javax.swing.JFrame {
         comboboxFaculty = new javax.swing.JComboBox<>();
         password = new javax.swing.JPasswordField();
         confirmPwd = new javax.swing.JPasswordField();
+
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -92,13 +94,16 @@ public class adminsignup extends javax.swing.JFrame {
         jLabel6.setText("Position:");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
         jLabel8.setText("Contact Number:");
+
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setText("Password:");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setText("Confirm Password:");
+
 
         txtFname.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtFname.addActionListener(new java.awt.event.ActionListener() {
@@ -139,6 +144,7 @@ public class adminsignup extends javax.swing.JFrame {
 
         confirmPwd.setText("jPasswordField2");
 
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -160,6 +166,8 @@ public class adminsignup extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+
+                                  
                             .addComponent(txtFname)
                             .addComponent(txtLname)
                             .addComponent(txtMemberid)
@@ -172,6 +180,7 @@ public class adminsignup extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(169, 169, 169)
                         .addComponent(btnRegister)))
+
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -181,6 +190,7 @@ public class adminsignup extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
+
                     .addComponent(txtFname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -216,11 +226,13 @@ public class adminsignup extends javax.swing.JFrame {
                     .addComponent(confirmPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43)
                 .addComponent(btnRegister)
+
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
 
     private void txtLnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLnameActionPerformed
         // TODO add your handling code here:
@@ -229,6 +241,7 @@ public class adminsignup extends javax.swing.JFrame {
     private void txtFnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFnameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFnameActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -266,10 +279,12 @@ public class adminsignup extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+
     private javax.swing.JButton btnRegister;
     private javax.swing.JComboBox<String> comboboxFaculty;
     private javax.swing.JComboBox<String> comboboxPosition;
     private javax.swing.JPasswordField confirmPwd;
+
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -281,11 +296,13 @@ public class adminsignup extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+
     private javax.swing.JPasswordField password;
     private javax.swing.JTextField txtContactdt;
     private javax.swing.JTextField txtFname;
     private javax.swing.JTextField txtLname;
     private javax.swing.JTextField txtMemberid;
     private javax.swing.JTextField txtuname;
+
     // End of variables declaration//GEN-END:variables
 }
