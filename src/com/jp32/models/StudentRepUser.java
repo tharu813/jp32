@@ -9,16 +9,11 @@ package com.jp32.models;
  *
  * @author THARUSHI
  */
-public class StudentRepUser extends User{
-    private String degreep;
-    private boolean repstatus;
-    
-    
-    public StudentRepUser(String userid, String username, String password, String firstName, String lastName, String faculty, short userType, String post, int contactdt, String dp, boolean rpstatus) {
-        super(userid, username, password, firstName, lastName, faculty, userType, post, contactdt);
-        this. degreep = dp;
-        this. repstatus = rpstatus;
+public class StudentRepUser extends StUser{
+ 
+    public StudentRepUser(String userid, String username, String password, String firstName, String lastName, String faculty, short userType, String post, int contactdt, String repassword, String dp, boolean rpstatus) {
+        super(userid, username, password, firstName, lastName, faculty, userType, post, contactdt, repassword, dp, rpstatus);
     }
-    
+ 
 
 }

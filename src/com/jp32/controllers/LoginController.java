@@ -41,14 +41,16 @@ public class LoginController {
                 String faculty = res.getString("faculty");
                 short usertype = res.getShort("usertype");
                 String post = res.getString("post");
-                String contactnumber = res.getString("contactnumber");
+                int contactnumber = res.getInt("contactnumber");
+                String repassword = res.getString("password");
+                
                 if (isAdminCommitteeMember) {
                     switch (usertype) {
                         case 1:
-                            user = new HOAUser(userid, username, password, firstName, lastName, faculty, usertype, post, usertype);
+                            user = new HOAUser(userid, username, password, firstName, lastName, faculty, usertype, post, contactnumber, repassword);
                             break;
                         case 2:
-                            user = new MICUser(userid, username, password, firstName, lastName, faculty, usertype, post, usertype);
+                            user = new MICUser (userid, username, password, firstName, lastName, faculty, usertype, post, contactnumber, repassword);
                             break;
                         default:
                             user = null;
@@ -58,10 +60,10 @@ public class LoginController {
                     boolean repstatus = res.getBoolean("repstatus");
                     switch (usertype) {
                         case 3:
-                            user = new StudentMemberUser(userid, username, password, firstName, lastName, faculty, usertype, post, usertype, degreep, repstatus);
+                            user = new StudentMemberUser(userid, username, password, firstName, lastName, faculty, usertype, post, contactnumber, repassword, degreep, repstatus);
                             break;
                         case 4:
-                            user = new StudentRepUser(userid, username, password, firstName, lastName, faculty, usertype, post, usertype, degreep, repstatus);
+                            user = new StudentRepUser(userid, username, password, firstName, lastName, faculty, usertype, post, contactnumber, repassword, degreep, repstatus);
                             break;
                         default:
                             user = null;

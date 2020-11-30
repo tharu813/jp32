@@ -19,9 +19,10 @@ public abstract class User {
     private short usertype;
     private String post;
     private int contactnumber;
+    private String repassword;
     
     
-    public User(String userid, String username, String password, String firstName, String lastName, String faculty, short userType, String post, int contactdt){
+    public User(String userid, String username, String password, String firstName, String lastName, String faculty, short userType, String post, int contactdt, String repassword){
         this.userid = userid;
         this.username = username;
         this.password = password;
@@ -31,6 +32,7 @@ public abstract class User {
         this.usertype = userType;
         this.post = post;
         this.contactnumber = contactdt;
+        this.repassword = repassword;
     }
     public String getUserid(){
         return userid;
@@ -66,5 +68,9 @@ public abstract class User {
     
     public int getContactnum() {
         return contactnumber;
+    }
+    
+    public String getRepassword(){
+        return repassword;
     }
 }
