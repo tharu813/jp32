@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jp32;
+package com.jp32.views;
+
+import com.jp32.controllers.AdminRegistrationController;
+import java.sql.Types;
 
 /**
  *
@@ -43,12 +46,14 @@ public class adminsignup extends javax.swing.JFrame {
         txtMemberid = new javax.swing.JTextField();
         txtContactdt = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        txtuname = new javax.swing.JTextField();
         btnRegister = new javax.swing.JButton();
         comboboxPosition = new javax.swing.JComboBox<>();
         comboboxFaculty = new javax.swing.JComboBox<>();
         txtpassword = new javax.swing.JPasswordField();
         txtconfirmPwd = new javax.swing.JPasswordField();
+        jLabel12 = new javax.swing.JLabel();
+        txtuname = new javax.swing.JTextField();
+        txtUsertype = new javax.swing.JTextField();
 
         jLabel7.setText("jLabel7");
 
@@ -124,8 +129,6 @@ public class adminsignup extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel11.setText("User Name:");
 
-        txtuname.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
         btnRegister.setBackground(new java.awt.Color(51, 255, 255));
         btnRegister.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         btnRegister.setForeground(new java.awt.Color(153, 0, 0));
@@ -147,6 +150,18 @@ public class adminsignup extends javax.swing.JFrame {
 
         txtconfirmPwd.setText("jPasswordField2");
 
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel12.setText("User Type");
+
+        txtuname.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        txtUsertype.setText("Enter 1 for HOA, Enter 2 for MIC");
+        txtUsertype.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsertypeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -165,20 +180,22 @@ public class adminsignup extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel2))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel12))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtFname)
                             .addComponent(txtLname)
                             .addComponent(txtMemberid)
                             .addComponent(txtContactdt)
-                            .addComponent(txtuname)
                             .addComponent(comboboxPosition, 0, 282, Short.MAX_VALUE)
                             .addComponent(comboboxFaculty, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtpassword)
-                            .addComponent(txtconfirmPwd)))
+                            .addComponent(txtconfirmPwd)
+                            .addComponent(txtUsertype)
+                            .addComponent(txtuname)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(169, 169, 169)
+                        .addGap(193, 193, 193)
                         .addComponent(btnRegister)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -210,11 +227,11 @@ public class adminsignup extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtContactdt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(47, 47, 47)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11)
                     .addComponent(txtuname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -222,9 +239,13 @@ public class adminsignup extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(txtconfirmPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12)
+                    .addComponent(txtUsertype, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47)
                 .addComponent(btnRegister)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -246,13 +267,19 @@ public class adminsignup extends javax.swing.JFrame {
         String position = (String) comboboxPosition.getSelectedItem();
         String contact = txtContactdt.getText();
         String uname = txtuname.getText();
-        String password = txtpassword.getText();
-        char[] confirmedpwd = txtconfirmPwd.getPassword();
+        char[] password = txtpassword.getPassword();
+        String confirmedpwd = String.valueOf(txtconfirmPwd.getPassword()); 
+        String usertype = txtUsertype.getText();
         
-        
+       // AdminRegistrationController adreg = new AdminRegistrationController();
+        AdminRegistrationController.registerUser(fname, lname, userid, faculty, position, contact, uname, confirmedpwd, usertype);
         
         
     }//GEN-LAST:event_btnRegisterActionPerformed
+
+    private void txtUsertypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsertypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsertypeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -296,6 +323,7 @@ public class adminsignup extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -309,6 +337,7 @@ public class adminsignup extends javax.swing.JFrame {
     private javax.swing.JTextField txtFname;
     private javax.swing.JTextField txtLname;
     private javax.swing.JTextField txtMemberid;
+    private javax.swing.JTextField txtUsertype;
     private javax.swing.JPasswordField txtconfirmPwd;
     private javax.swing.JPasswordField txtpassword;
     private javax.swing.JTextField txtuname;

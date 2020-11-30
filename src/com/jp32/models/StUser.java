@@ -12,12 +12,16 @@ package com.jp32.models;
 public class StUser extends User {
 
     private String degreep;
-    private boolean repstatus;
+    private String repstatus;
 
-    public StUser(String userid, String username, String password, String firstName, String lastName, String faculty, short userType, String post, String contactdt, String repassword, String dp, boolean repstatus) {
+    public StUser(String userid, String username, String password, String firstName, String lastName, String faculty, String userType, String post, String contactdt, String repassword, String dp, String repStatus) {
         super(userid, username, password, firstName, lastName, faculty, userType, post, contactdt, repassword);
-        this.degreep = dp;
-        this.repstatus = repstatus;
+       this.degreep =  dp;
+       this.repstatus = repStatus;
     }
+
+   
+
+   
 
 }

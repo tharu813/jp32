@@ -33,23 +33,23 @@ public class LoginController {
         }
         if (res != null) {
             // now we have a user
-            User user;
+            User user = null;
             try {
                 String userid = res.getString("memberid");
                 String firstName = res.getString("firstname");
                 String lastName = res.getString("lastname");
                 String faculty = res.getString("faculty");
-                short usertype = res.getShort("usertype");
+                String usertype = res.getString("usertype");
                 String post = res.getString("post");
                 String contactnumber = res.getString("contactnumber");
                 String repassword = res.getString("password");
                 
                 if (isAdminCommitteeMember) {
                     switch (usertype) {
-                        case 1:
-                            user = new HOAUser(userid, username, password, firstName, lastName, faculty, usertype, post, contactnumber, repassword);
+                        case "1":
+                            user : new HOAUser(userid, username, password, firstName, lastName, faculty, usertype, post, contactnumber, repassword);
                             break;
-                        case 2:
+                        case "2":
                             user = new MICUser (userid, username, password, firstName, lastName, faculty, usertype, post, contactnumber, repassword);
                             break;
                         default:
@@ -57,12 +57,12 @@ public class LoginController {
                     }
                 } else {
                     String degreep = res.getString("degreeprogramme");
-                    boolean repstatus = res.getBoolean("repstatus");
+                    String repstatus = res.getString("repstatus");
                     switch (usertype) {
-                        case 3:
+                        case "3":
                             user = new StudentMemberUser(userid, username, password, firstName, lastName, faculty, usertype, post, contactnumber, repassword, degreep, repstatus);
                             break;
-                        case 4:
+                        case "4":
                             user = new StudentRepUser(userid, username, password, firstName, lastName, faculty, usertype, post, contactnumber, repassword, degreep, repstatus);
                             break;
                         default:
@@ -71,6 +71,7 @@ public class LoginController {
                 }
                 System.out.println("Welcome "+user.getFirstName()+"!");
                 return user;
+                
 
             } catch (SQLException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);

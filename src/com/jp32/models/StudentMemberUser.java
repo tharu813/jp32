@@ -11,13 +11,11 @@ package com.jp32.models;
  */
 public class StudentMemberUser extends StUser {
     
-    public StudentMemberUser(String userid, String username, String password, String firstName, String lastName, String faculty, short userType, String post, String contactdt, String repassword, String dp, boolean repstatus) {
-        super(userid, username, password, firstName, lastName, faculty, userType, post, contactdt, repassword, dp, repstatus);
+    public StudentMemberUser(String userid, String username, String password, String firstName, String lastName, String faculty, String userType, String post, String contactdt, String repassword, String dp, String repStatus) {
+        super(userid, username, password, firstName, lastName, faculty, userType, post, contactdt, repassword, dp, repStatus);
     }
     
-  
     
-  
   
 
 }

@@ -5,20 +5,38 @@
  */
 package com.jp32.controllers;
 
+import com.jp32.core.DBManager;
 import com.mysql.cj.protocol.Resultset;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author THARUSHI
  */
 public class AdminRegistrationController {
-    
-    /*public void 
 
-    Resultset res;
-    String[] columns = {"username", "password"};
-    String[] values = {username, password};
+    /**
+     *
+     * @param fname
+     * @param lname
+     * @param userid
+     * @param faculty
+     * @param position
+     * @param contact
+     * @param uname
+     * @param password
+     */
+    public static void registerUser(String fname, String lname, String userid, String faculty, String position, String contact, String uname, String password, String usertype) {
 
-    //insertRecord(String table, String[] columns, String[] values)
-    //res = DBManager.insertRecord();*/
+        int res;
+        String[] columns = {"FirstName", "LastName", "MemberID", "Faculty", "post", "ContactNumber", "username", "password", "userType"};
+        String[] values = {fname, lname, userid, faculty, position, contact, uname, password, usertype};
+
+        res = DBManager.insertRecord("AdminCommitteeMember", columns, values);
+
+        if(res != 0){
+            System.out.println("Record added successfully");
+        }
+    }
+
 }
