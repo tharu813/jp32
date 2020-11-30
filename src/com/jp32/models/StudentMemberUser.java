@@ -9,10 +9,13 @@ package com.jp32.models;
  *
  * @author THARUSHI
  */
-public class StudentMemberUser extends User {
+public class StudentMemberUser extends StUser {
     
-    public StudentMemberUser(String userid, String username, String password, String firstName, String lastName) {
-        super(userid, username, password, firstName, lastName);
+    public StudentMemberUser(String userid, String username, String password, String firstName, String lastName, String faculty, short userType, String post, int contactdt, String repassword, String dp, boolean rpstatus) {
+        super(userid, username, password, firstName, lastName, faculty, userType, post, contactdt, repassword, dp, rpstatus);
     }
     
+  
+  
+
 }

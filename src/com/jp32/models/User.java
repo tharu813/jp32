@@ -15,13 +15,24 @@ public abstract class User {
     private String password;
     private String firstName;
     private String lastName;
+    private String faculty;
+    private short usertype;
+    private String post;
+    private int contactnumber;
+    private String repassword;
     
-    public User(String userid, String username, String password, String firstName, String lastName){
+    
+    public User(String userid, String username, String password, String firstName, String lastName, String faculty, short userType, String post, int contactdt, String repassword){
         this.userid = userid;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.faculty = faculty;
+        this.usertype = userType;
+        this.post = post;
+        this.contactnumber = contactdt;
+        this.repassword = repassword;
     }
     public String getUserid(){
         return userid;
@@ -39,6 +50,27 @@ public abstract class User {
         return lastName;
     }
     
+    public String getPassword() {
+        return password;
+    }
     
+    public String getFaculty() {
+        return faculty;
+    }
     
+    public short getUsertype() {
+        return usertype;
+    }
+    
+    public String getPost() {
+        return post;
+    }
+    
+    public int getContactnum() {
+        return contactnumber;
+    }
+    
+    public String getRepassword(){
+        return repassword;
+    }
 }
