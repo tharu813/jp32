@@ -9,10 +9,13 @@ package com.jp32.controllers;
 
 import com.jp32.core.DBManager;
 import com.jp32.models.*;
+import com.jp32.views.LoginUI;
+import java.awt.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,7 +36,9 @@ public class LoginController {
                 isAdminCommitteeMember = true;
             } else {
                 res = DBManager.fetchByColumns("StudentMember", columns, values);
-                if (res.next()) userFound = true;
+                if (res.next()) {
+                    userFound = true;
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
@@ -50,14 +55,14 @@ public class LoginController {
                 String post = res.getString("post");
                 String contactnumber = res.getString("contactnumber");
                 String repassword = res.getString("password");
-                
+
                 if (isAdminCommitteeMember) {
                     switch (usertype) {
                         case "1":
                             user = new HOAUser(userid, username, password, firstName, lastName, faculty, usertype, post, contactnumber, repassword);
                             break;
                         case "2":
-                            user = new MICUser (userid, username, password, firstName, lastName, faculty, usertype, post, contactnumber, repassword);
+                            user = new MICUser(userid, username, password, firstName, lastName, faculty, usertype, post, contactnumber, repassword);
                             break;
                         default:
                             user = null;
@@ -76,9 +81,10 @@ public class LoginController {
                             user = null;
                     }
                 }
-                System.out.println("Welcome "+user.getFirstName()+"!");
+                System.out.println("Welcome " + user.getFirstName() + "!");
+
+                //JOptionPane.showMessageDialog("Welcome" + user.getFirstName() + "!", "Login Successful", JOptionPane.PLAIN_MESSAGE);
                 return user;
-                
 
             } catch (SQLException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);

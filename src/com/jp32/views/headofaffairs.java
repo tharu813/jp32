@@ -5,6 +5,15 @@
  */
 package com.jp32.views;
 
+import com.jp32.controllers.CreateEventController;
+import com.jp32.core.DBManager;
+import com.jp32.models.AdminMemberUser;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Samadhi Ariyasinghe
@@ -12,7 +21,53 @@ package com.jp32.views;
 public class headofaffairs extends javax.swing.JFrame {
 
     private String clubName;
+    private String MIC;
+    private String President;
+    private String VicePresident;
+    private String secretary;
+    private String treasurer;
 
+    private void setBoardMembers(){
+        clearBoardMembers();
+        getBoardMembersFromDB();
+        MasterInchargeName.setText(MIC);
+        PresidentName.setText(President);
+        VicePresidentName.setText(VicePresident);
+        ScrtryName.setText(secretary);
+        TreasurerName.setText(treasurer);
+    }
+    
+    private void clearBoardMembers(){
+        MIC = "";
+        President = "";
+        VicePresident = "";
+        secretary = "";
+        treasurer = "";
+    }
+    
+    private void getBoardMembersFromDB(){
+        String[] columns = {"clubname"};
+        String[] values = {clubName};
+        ResultSet res = DBManager.fetchByColumns("club", columns, values);
+        try {
+            if (res.next()){
+                MIC = res.getString("masterincharge");
+                President = res.getString("president");
+                VicePresident = res.getString("vicepresident");
+                secretary =  res.getString("secretary");
+                treasurer = res.getString("treasurer");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(headofaffairs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void setClubDetails(){
+        txtClubname.setText(clubName);
+        setBoardMembers();
+    }
+    
+    
     /**
      * Creates new form headofaffairs
      */
@@ -113,6 +168,7 @@ public class headofaffairs extends javax.swing.JFrame {
         jPanel3.add(jPanel4, java.awt.BorderLayout.PAGE_START);
 
         txtClubname.setBackground(new java.awt.Color(240, 240, 240));
+        txtClubname.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtClubname.setBorder(null);
         txtClubname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,17 +180,16 @@ public class headofaffairs extends javax.swing.JFrame {
         panelClubname.setLayout(panelClubnameLayout);
         panelClubnameLayout.setHorizontalGroup(
             panelClubnameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelClubnameLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelClubnameLayout.createSequentialGroup()
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addComponent(txtClubname, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
         panelClubnameLayout.setVerticalGroup(
             panelClubnameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelClubnameLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtClubname, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(panelClubnameLayout.createSequentialGroup()
+                .addComponent(txtClubname, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 13, Short.MAX_VALUE))
         );
 
         jLabel14.setText("Event Name:");
@@ -145,6 +200,12 @@ public class headofaffairs extends javax.swing.JFrame {
         jLabel7.setText("Master Incharge: ");
 
         jLabel8.setText("President");
+
+        MasterInchargeName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MasterInchargeNameActionPerformed(evt);
+            }
+        });
 
         PresidentName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -398,7 +459,7 @@ public class headofaffairs extends javax.swing.JFrame {
         jLabel4.setText("Religious ");
 
         ComboboxReligious.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        ComboboxReligious.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buddhist", "Catholic", " " }));
+        ComboboxReligious.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buddhist", "Catholic", "" }));
         ComboboxReligious.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ComboboxReligious.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -550,34 +611,44 @@ public class headofaffairs extends javax.swing.JFrame {
     }//GEN-LAST:event_PresidentNameActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        String eventname = txtEventName.getText();
+        String venue = txtVenue.getText();
+        String eventdate = txtDate.getText();
+        String eventtype = txtevType.getText();
+        String eventtime = txtTime.getText();
+
+        CreateEventController.createEvent(eventname, venue, eventdate, eventtype, eventtime);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ComboboxRotaractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboboxRotaractActionPerformed
         clubName = ComboboxRotaract.getSelectedItem().toString();
-        txtClubname.setText(clubName);
+        setClubDetails();
 
     }//GEN-LAST:event_ComboboxRotaractActionPerformed
 
     private void ComboboxReligiousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboboxReligiousActionPerformed
         clubName = ComboboxReligious.getSelectedItem().toString();
-        txtClubname.setText(clubName);
+        setClubDetails();
     }//GEN-LAST:event_ComboboxReligiousActionPerformed
 
     private void ComboboxSportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboboxSportsActionPerformed
 
         clubName = ComboboxSports.getSelectedItem().toString();
-        txtClubname.setText(clubName);
+        setClubDetails();
     }//GEN-LAST:event_ComboboxSportsActionPerformed
 
     private void txtClubnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClubnameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtClubnameActionPerformed
 
+    private void MasterInchargeNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MasterInchargeNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MasterInchargeNameActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void start(String args[]) {
+    public static void start(AdminMemberUser user) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -661,5 +732,9 @@ public class headofaffairs extends javax.swing.JFrame {
     private javax.swing.JTextField txtVenue;
     private javax.swing.JTextField txtevType;
     // End of variables declaration//GEN-END:variables
+
+    private Connection createConnection() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

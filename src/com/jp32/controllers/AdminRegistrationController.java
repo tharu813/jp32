@@ -29,6 +29,7 @@ public class AdminRegistrationController {
     public static void registerUser(String fname, String lname, String userid, String faculty, String position, String contact, String uname, String password, String usertype) {
 
         int res;
+        boolean status = false;
         String[] columns = {"FirstName", "LastName", "MemberID", "Faculty", "post", "ContactNumber", "username", "password", "userType"};
         String[] values = {fname, lname, userid, faculty, position, contact, uname, password, usertype};
 
@@ -36,6 +37,9 @@ public class AdminRegistrationController {
 
         if(res != 0){
             System.out.println("Record added successfully");
+            status = true;
+            JOptionPane.showMessageDialog(null, "Registered Successfully");
+            
         }
     }
 

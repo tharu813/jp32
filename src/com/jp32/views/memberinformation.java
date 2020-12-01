@@ -5,17 +5,78 @@
  */
 package com.jp32.views;
 
+import com.jp32.core.DBManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Samadhi Ariyasinghe
  */
 public class memberinformation extends javax.swing.JFrame {
 
+    DefaultTableModel tableModel;
+    JTable table;
+    private String clubName;
+    private ArrayList<String[]> memberDetails = new ArrayList<>();
+
     /**
      * Creates new form memberinformation
      */
     public memberinformation() {
         initComponents();
+        tableModel = new DefaultTableModel();
+        jTable2.setModel(tableModel);
+        tableModel.addColumn("MemberID");
+        tableModel.addColumn("UserName");
+        tableModel.addColumn("Faculty");
+        tableModel.addColumn("DegreeProgram");
+        tableModel.addColumn("Post");
+    }
+
+    private void getMemberListFromDB() {
+        String clubId = "";
+        ArrayList<String> studentIds = new ArrayList<>();
+        String[] clubCol = {"clubname"};
+        String[] clubVal = {clubName};
+        ResultSet res = DBManager.fetchByColumns("club", clubCol, clubVal);
+        try {
+            if (res.next()) {
+                clubId = res.getString("clubid");
+                String[] memCol = {"clubid"};
+                String[] memVal = {clubId};
+                ResultSet memberships = DBManager.fetchByColumns("membership", memCol, memVal);
+                while (memberships.next()) {
+                    studentIds.add(memberships.getString("studentid"));
+                }
+                for (String sid : studentIds) {
+                    ResultSet student = DBManager.fetchByID("studentmember", "memberid", sid);
+                    if (student.next()) {
+                        memberDetails.add(new String[]{
+                            student.getString("memberid"),
+                            student.getString("username"),
+                            student.getString("faculty"),
+                            student.getString("degreeprogramme"),
+                            student.getString("post")
+                        });
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(memberinformation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void displayMembers() {
+        getMemberListFromDB();
+        for (String[] member : memberDetails) {
+            tableModel.addRow(member);
+        }
     }
 
     /**
@@ -27,10 +88,12 @@ public class memberinformation extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPaneMI = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        cmboxClub = new javax.swing.JComboBox<>();
+        btnSelect = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,28 +128,44 @@ public class memberinformation extends javax.swing.JFrame {
                 "MemberID", "UserName", "Faculty", "DegreeProgram","Post"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPaneMI.setViewportView(jTable2);
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 102));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Member Information");
+        jLabel1.setText("Member Information - Select club to view");
+
+        cmboxClub.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Basketball", "Table Tennis", "Music", "Dancing", "Buddhist", "Catholic", "Rotaract", "AIESEC" }));
+
+        btnSelect.setText("Select");
+        btnSelect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmboxClub, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(btnSelect)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(cmboxClub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSelect))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -94,7 +173,7 @@ public class memberinformation extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
+            .addComponent(jScrollPaneMI, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -102,11 +181,16 @@ public class memberinformation extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPaneMI, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
+        clubName = cmboxClub.getSelectedItem().toString();
+        displayMembers();
+    }//GEN-LAST:event_btnSelectActionPerformed
 
     /**
      * @param args the command line arguments
@@ -144,9 +228,11 @@ public class memberinformation extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSelect;
+    private javax.swing.JComboBox<String> cmboxClub;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPaneMI;
     private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

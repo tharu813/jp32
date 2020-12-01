@@ -6,6 +6,7 @@
 package com.jp32.controllers;
 
 import com.jp32.core.DBManager;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,16 +14,28 @@ import com.jp32.core.DBManager;
  */
 public class CreateEventController {
     
-    public void createEvent(String eventname, String venue, java.sql.Date eventdate, short eventtype, java.sql.Time eventtime){
+    /**
+     *
+     * @param eventname
+     * @param venue
+     * @param eventdate
+     * @param eventtype
+     * @param eventtime
+     */
+    public static void createEvent(String eventname, String venue, String eventdate, String eventtype, String eventtime){
         
-        /*int res;
+        int res;
+        boolean status;
         String[] columns = {"EventName", "Venue", "EventDate", "EventType", "EventTime"};
         String[] values = {eventname, venue, eventdate, eventtype, eventtime};        
         res = DBManager.insertRecord("nsbmevent", columns, values);
         
         if(res != 0){
+            status = true;
             System.out.println("Event Created Successfully");
+            JOptionPane.showMessageDialog(null, "Event created Successfully");
+            
         }
-        */
+        
     }
 }
